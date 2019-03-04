@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="questionsDAO" class="dao.QuestionsDAOImpl"/>
+    <bean id="userDAO" class="dao.UserDAOImpl"/>
+
+
+    <bean id="questionsService" class="service.QuestionsServiceImpl">
+        <constructor-arg  name="questionsDAO" ref="questionsDAO"/>
+    </bean>
+
+    <bean id="userService" class="service.UserServiceImpl">
+        <constructor-arg  name ="userDAO" ref="userDAO"/>
+    </bean>
+
+    <bean id="askingQuestionsService" class="service.AskingQuestionsService">
+        <constructor-arg  name ="userService" ref="userService"/>
+        <constructor-arg  name ="questionsService" ref="questionsService"/>
+    </bean>
+
+</beans>

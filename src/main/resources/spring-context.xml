@@ -4,21 +4,21 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="questionsDAO" class="dao.QuestionsDAOImpl"/>
-    <bean id="userDAO" class="dao.UserDAOImpl"/>
+    <!--<bean id="questionsDAO" class="questionnaire.dao.QuestionsDAOImpl"/>
+    <bean id="userDAO" class="questionnaire.dao.UserDAOImpl"/>
 
 
-    <bean id="questionsService" class="service.QuestionsServiceImpl">
+    <bean id="questionsService" class="questionnaire.service.QuestionsServiceImpl">
         <constructor-arg  name="questionsDAO" ref="questionsDAO"/>
     </bean>
 
-    <bean id="userService" class="service.UserServiceImpl">
+    <bean id="userService" class="questionnaire.service.UserServiceImpl">
         <constructor-arg  name ="userDAO" ref="userDAO"/>
     </bean>
 
-    <bean id="askingQuestionsService" class="service.AskingQuestionsService">
+    <bean id="askingQuestionsService" class="questionnaire.service.AskingQuestionsService">
         <constructor-arg  name ="userService" ref="userService"/>
         <constructor-arg  name ="questionsService" ref="questionsService"/>
-    </bean>
+    </bean>-->
 
 </beans>

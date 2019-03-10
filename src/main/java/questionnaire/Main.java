@@ -28,6 +28,6 @@ public class Main {
     public static void main(String[] args) {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Main.class);
         AskingQuestionsService askingQuestionsService = context.getBean(AskingQuestionsService.class);
-        askingQuestionsService.askQuestions(askingQuestionsService.getCsvFileAddress());
+        askingQuestionsService.askQuestions();
     }
 }

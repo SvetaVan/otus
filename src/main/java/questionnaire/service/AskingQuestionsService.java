@@ -1,8 +1,6 @@
 package questionnaire.service;
 
-import org.apache.commons.lang3.LocaleUtils;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.MessageSource;
 import questionnaire.domain.Questions;
 import questionnaire.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,53 +8,39 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Scanner;
 
 
 @Component
 public class AskingQuestionsService {
-    @Autowired
-    private MessageSource messageSource;
 
     private final UserService userService;
     private final QuestionsService questionsService;
+    private final UserInteractionService userInteractionService;
     private final String csvFileAddress;
-    private final String localization;
+
 
     @Autowired
     public AskingQuestionsService(UserService userService
             , QuestionsService questionsService
+            , UserInteractionService userInteractionService
             , @Value("${csvaddress}") String csvFileAddress
-            , @Value("${localization}") String localization
     ) {
         this.userService = userService;
         this.questionsService = questionsService;
         this.csvFileAddress = csvFileAddress;
-        this.localization = localization;
+        this.userInteractionService = userInteractionService;
     }
 
-    public void askQuestions (String fileName){
-        Locale localeToUse = Locale.ENGLISH;
-        if (localization.equals("ru")){
-            localeToUse = new Locale("ru");
-        }
 
-        Scanner scanner = new Scanner(System.in);
-        System.out.println(messageSource.getMessage("request.user.name", null, localeToUse));
-        String name = scanner.nextLine();
+    public void askQuestions (){
 
-        System.out.println(messageSource.getMessage("request.user.surname", null, localeToUse));
-        String surname = scanner.nextLine();
-
+        String name = userInteractionService.requestName();
+        String surname = userInteractionService.requestSurname();
         User user = userService.identifyUser(name, surname);
-        Questions questions = questionsService.loadQuestionsFromCSV(fileName);
-        System.out.println(String.format(
-                messageSource.getMessage("greeting.user", null, localeToUse)
-                , user.getName()
-                , user.getSurname())
-        );
-        System.out.println(messageSource.getMessage("introduction", null, localeToUse));
+        Questions questions = questionsService.loadQuestionsFromCSV(csvFileAddress);
+        userInteractionService.greetingUser(user);
+        userInteractionService.intro();
 
         List<String> answers = new ArrayList<>();
 
@@ -64,19 +48,15 @@ public class AskingQuestionsService {
             if(questions.getQuestion().get(i).contains("Question")){
                 continue;
             }
-            System.out.println(messageSource.getMessage("question" + i, null, localeToUse));
-            System.out.println(messageSource.getMessage("request.answer", null, localeToUse));
-            String answer = scanner.nextLine();
+            userInteractionService.question(i);
+            String answer = userInteractionService.requestAnswer();
             answers.add(answer);
         }
-        System.out.println(messageSource.getMessage("goodbye.message", null, localeToUse));
+        userInteractionService.goodbye();
         for (String answer : answers) {
             System.out.println(answer);
         }
     }
 
-    public String getCsvFileAddress() {
-        return csvFileAddress;
-    }
 
 }

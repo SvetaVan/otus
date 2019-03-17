@@ -1,29 +1,27 @@
 package questionnaire.config;
 
 
-import questionnaire.dao.QuestionsDAO;
-import questionnaire.dao.UserDAO;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import questionnaire.service.QuestionsService;
-import questionnaire.service.QuestionsServiceImpl;
-import questionnaire.service.UserService;
-import questionnaire.service.UserServiceImpl;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 
 
 @Configuration
 public class ServiceConfig {
 
-
     @Bean
-    public QuestionsService questionsService(QuestionsDAO questionsDAO){
-        return new QuestionsServiceImpl(questionsDAO);
+    public static PropertySourcesPlaceholderConfigurer propertyConfig(){
+        return new PropertySourcesPlaceholderConfigurer();
     }
 
     @Bean
-    public UserService userService(UserDAO userDAO){
-        return new UserServiceImpl(userDAO);
+    public MessageSource messageSource(){
+        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+        messageSource.setBasename("/i18n/bundle");
+        messageSource.setDefaultEncoding("UTF-8");
+        return messageSource;
     }
-
 
 }

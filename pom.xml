@@ -17,13 +17,22 @@
         <junit-platform.version>1.2.0</junit-platform.version>
     </properties>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-framework-bom</artifactId>
+                <version>4.3.8.RELEASE</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
-
-
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-            <version>5.0.6.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>net.sf.supercsv</groupId>
@@ -34,7 +43,6 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <version>5.1.5.RELEASE</version>
         </dependency>
 
         <dependency>

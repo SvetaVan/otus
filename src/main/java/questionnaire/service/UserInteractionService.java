@@ -1,9 +1,9 @@
 package questionnaire.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
+import questionnaire.config.YamlProps;
 import questionnaire.domain.User;
 
 import java.util.Locale;
@@ -18,9 +18,9 @@ public class UserInteractionService {
     private final Locale localization;
 
 
-    public UserInteractionService(@Value("${localization}") String localization) {
-        if (localization.equals("ru")) {
-            this.localization = new Locale("ru");
+    public UserInteractionService(YamlProps yamlProps) {
+        if (yamlProps.getLocale().equals("ru")) {
+            this.localization = Locale.forLanguageTag("ru");
         } else {
             this.localization = Locale.ENGLISH;
         }

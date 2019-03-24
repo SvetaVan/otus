@@ -5,15 +5,14 @@ import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
+import org.springframework.boot.test.context.SpringBootTest;
 import questionnaire.dao.QuestionsDAOImpl;
 import questionnaire.dao.UserDAOImpl;
 import questionnaire.domain.User;
 
-@PropertySource("classpath:testprops.properties")
+@SpringBootTest
 @ExtendWith(MockitoExtension.class)
-public class AskingQuestionsServiceTest extends AbstractJUnit4SpringContextTests {
+public class AskingQuestionsServiceTest {
 
     private AskingQuestionsService askingQuestionsService;
 

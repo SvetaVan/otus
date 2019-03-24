@@ -1,4 +1,4 @@
-package domain;
+package questionnaire.domain;
 
 import java.util.List;
 

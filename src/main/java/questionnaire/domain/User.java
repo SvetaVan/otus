@@ -1,4 +1,4 @@
-package domain;
+package questionnaire.domain;
 
 public class User {
     private String name;

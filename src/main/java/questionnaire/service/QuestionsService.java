@@ -1,6 +1,6 @@
-package service;
+package questionnaire.service;
 
-import domain.Questions;
+import questionnaire.domain.Questions;
 
 public interface QuestionsService {
 

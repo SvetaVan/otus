@@ -1,6 +1,6 @@
-package dao;
+package questionnaire.dao;
 
-import domain.User;
+import questionnaire.domain.User;
 
 public interface UserDAO {
 

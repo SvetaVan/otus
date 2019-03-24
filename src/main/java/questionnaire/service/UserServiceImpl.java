@@ -1,11 +1,15 @@
-package service;
+package questionnaire.service;
 
-import dao.UserDAO;
-import domain.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import questionnaire.dao.UserDAO;
+import questionnaire.domain.User;
 
+@Service
 public class UserServiceImpl implements UserService {
     private final UserDAO userDAO;
 
+    @Autowired
     public UserServiceImpl(UserDAO userDAO) {
         this.userDAO = userDAO;
     }

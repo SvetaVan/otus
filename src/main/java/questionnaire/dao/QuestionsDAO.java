@@ -1,6 +1,6 @@
-package dao;
+package questionnaire.dao;
 
-import domain.Questions;
+import questionnaire.domain.Questions;
 
 public interface QuestionsDAO {
     Questions loadQuestionsFromCSV(String csvFileName);

@@ -1,6 +1,7 @@
-package dao;
+package questionnaire.dao;
 
-import domain.Questions;
+import questionnaire.domain.Questions;
+import org.springframework.stereotype.Component;
 import org.supercsv.cellprocessor.constraint.NotNull;
 import org.supercsv.cellprocessor.ift.CellProcessor;
 import org.supercsv.io.CsvListReader;
@@ -12,13 +13,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Component
 public class QuestionsDAOImpl implements QuestionsDAO {
 
     @Override
     public Questions loadQuestionsFromCSV(String csvFileName) {
         return new Questions(readWithCsvBeanReader(csvFileName));
     }
-
 
     private static List<List<String>> readWithCsvBeanReader(String csvFileName){
 

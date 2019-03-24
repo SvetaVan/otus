@@ -1,6 +1,6 @@
-package service;
+package questionnaire.service;
 
-import domain.User;
+import questionnaire.domain.User;
 
 public interface UserService {
 

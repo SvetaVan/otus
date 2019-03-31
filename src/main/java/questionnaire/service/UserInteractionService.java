@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 import questionnaire.domain.User;
 
 import java.util.Locale;
-import java.util.Scanner;
 
 @Component
 public class UserInteractionService {
@@ -20,57 +19,43 @@ public class UserInteractionService {
 
     public UserInteractionService(@Value("${localization}") String localization) {
         if (localization.equals("ru")) {
-            this.localization = new Locale("ru");
+            this.localization = Locale.forLanguageTag("ru");
         } else {
             this.localization = Locale.ENGLISH;
         }
     }
 
-    public String requestName(){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println(messageSource.getMessage("request.user.name", null, localization));
-        return scanner.nextLine();
+    public String requestName(String name){
+        return "Name is" + name;
 
     }
 
-    public String requestSurname(){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println(messageSource.getMessage("request.user.surname", null, localization));
-        return scanner.nextLine();
+    public String requestSurname(String surname){
+        return "Surname is" + surname;
     }
 
     public String greetingUser(User user){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println(String.format(
+        return String.format(
                 messageSource.getMessage("greeting.user", null, localization)
                 , user.getName()
-                , user.getSurname())
+                , user.getSurname()
         );
-        return scanner.nextLine();
     }
 
     public String intro(){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println(messageSource.getMessage("introduction", null, localization));
-        return scanner.nextLine();
+        return messageSource.getMessage("introduction", null, localization);
     }
 
     public String question(int questionNumber){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println(messageSource.getMessage("question" + questionNumber, null, localization));
-        return scanner.nextLine();
+        return messageSource.getMessage("question" + questionNumber, null, localization);
     }
 
     public String requestAnswer(){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println(messageSource.getMessage("request.answer", null, localization));
-        return scanner.nextLine();
+        return messageSource.getMessage("request.answer", null, localization);
     }
 
     public String goodbye (){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println(messageSource.getMessage("goodbye.message", null, localization));
-        return scanner.nextLine();
+        return messageSource.getMessage("goodbye.message", null, localization);
     }
 
 }

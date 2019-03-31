@@ -5,29 +5,27 @@ import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
-import questionnaire.dao.QuestionsDAOImpl;
+import org.springframework.boot.test.context.SpringBootTest;
 import questionnaire.dao.UserDAOImpl;
 import questionnaire.domain.User;
+import questionnaire.shell.AskingQuestionsCommands;
 
-@PropertySource("classpath:testprops.properties")
+@SpringBootTest
 @ExtendWith(MockitoExtension.class)
-public class AskingQuestionsServiceTest extends AbstractJUnit4SpringContextTests {
+public class AskingQuestionsServiceTest {
 
-    private AskingQuestionsService askingQuestionsService;
+    private AskingQuestionsCommands askingQuestionsService;
 
     @Test
     void askQuestionsTest() {
 
         UserInteractionService uis = createUserInteractionMock();
 
-        askingQuestionsService = new AskingQuestionsService(
+        askingQuestionsService = new AskingQuestionsCommands(
                 new UserServiceImpl(new UserDAOImpl())
-                , new QuestionsServiceImpl(new QuestionsDAOImpl())
                 , uis);
 
-        askingQuestionsService.askQuestions();
+       // askingQuestionsService.askQuestions();
 
         EasyMock.verify(uis);
     }
@@ -35,8 +33,8 @@ public class AskingQuestionsServiceTest extends AbstractJUnit4SpringContextTests
     private UserInteractionService createUserInteractionMock() {
         UserInteractionService uis = EasyMock.createMock(UserInteractionService.class);
 
-        EasyMock.expect(uis.requestName()).andReturn("Vasya");
-        EasyMock.expect(uis.requestSurname()).andReturn("Pupkin");
+        EasyMock.expect(uis.requestName("Vasya")).andReturn("Vasya");
+        EasyMock.expect(uis.requestSurname("Pupkin")).andReturn("Pupkin");
         User user = new User("Vasya", "Pupkin");
         EasyMock.expect(uis.greetingUser(EasyMock.anyObject())).andReturn("Hello "+user.getName());
         EasyMock.expect(uis.intro()).andReturn("Please answer questions");
@@ -52,5 +50,4 @@ public class AskingQuestionsServiceTest extends AbstractJUnit4SpringContextTests
 
         return uis;
     }
-
 }
